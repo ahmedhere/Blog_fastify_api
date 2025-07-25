@@ -1,11 +1,11 @@
-import { model, Schema } from "mongoose";
+import { model, Schema, Types } from "mongoose";
 import bcrypt from 'bcrypt';
 
 const userSchema = new Schema({
     _id: {
         type: String,
-        required: true,
-        unique: true
+        default: new Types.ObjectId().toHexString(),
+        required: true
     },
     name: {
         type: String

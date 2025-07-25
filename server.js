@@ -4,10 +4,30 @@ import { JWTAuthStrategy, LocalLoginStrategy } from "./middleware/auth.js";
 import { PORT } from "./config/env.js";
 import routes from "./routes/index.js";
 import { connectDB } from "./config/mongoDb.js";
+import fastifySwagger from "@fastify/swagger";
+import fastifySwaggerUi from "@fastify/swagger-ui";
+import multer from 'fastify-multer';
+
 
 const fastify = Fastify({
     logger: true
 });
+
+
+fastify.register(multer.contentParser);
+
+fastify.register(fastifySwagger, {
+    openapi: {
+        info: {
+            title: 'Blog fastify'
+        }
+    }
+});
+
+fastify.register(fastifySwaggerUi, {
+    routePrefix: '/docs',
+    exposeRoutes: true,
+})
 
 fastify.register(passport.initialize());
 passport.use(LocalLoginStrategy);
