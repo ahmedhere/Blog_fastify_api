@@ -20,13 +20,22 @@ fastify.register(fastifySwagger, {
     openapi: {
         info: {
             title: 'Blog fastify'
+        },
+        components: {
+            securitySchemes: {
+                bearerAuth: {
+                    type: 'http',
+                    scheme: 'bearer',
+                    bearerFormat: 'JWT'
+                }
+            }
         }
-    }
+    },
 });
 
 fastify.register(fastifySwaggerUi, {
     routePrefix: '/docs',
-    exposeRoutes: true,
+    exposeRoutes: true
 })
 
 fastify.register(passport.initialize());

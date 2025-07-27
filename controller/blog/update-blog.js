@@ -1,5 +1,5 @@
 import Blog from "../../models/Blog.js";
-import { createError } from "../../utils/error";
+import { createError } from "../../utils/error.js";
 
 export default async ({
     _id,

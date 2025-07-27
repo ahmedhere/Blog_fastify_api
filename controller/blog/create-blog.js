@@ -10,7 +10,7 @@ export default async ({ title, description, attachment, userId }) => {
     if (isExist) throw createError('Blog already exist!', 403);
 
     const newBlog = {
-        name,
+        title,
         description,
         attachment,
         userId

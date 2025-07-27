@@ -1,22 +1,32 @@
 import passport from 'passport';
 import { ExtractJwt, Strategy as JWTStrategy } from 'passport-jwt';
-import LocalStrategy from 'passport-local';
+import { Strategy as LocalStrategy } from 'passport-local';
 import User from '../models/User.js';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { JWT_SECRET } from '../config/env.js';
 
-export const loginCheck = (req, res, done) => {
+export const loginCheck = (req, reply, done) => {
     passport.authenticate('local', (err, user, info) => {
         if (!user) req.error = info?.error || err?.error || 'Authentication failed';
         else req.user = user;
         done();
-    })(req, res, done);
+    })(req, reply, done);
 };
 
-export const authenticateAuthToken = passport.authenticate('jwt', {
-    session: false
-});
+// export const authenticateAuthToken = passport.authenticate('jwt', {
+//     session: false
+// });
+export const authenticateAuthToken = (req, res, done) => {
+    passport.authenticate('jwt', {
+        session: false
+    }, (err, user, info) => {
+        // console.log({ err, info })
+        if (!user) req.error = info?.error || info?.message || err?.error || 'Authentication failed';
+        else req.user = user;
+        done();
+    })(req, res, done);
+}
 
 export const LocalLoginStrategy = new LocalStrategy({
     usernameField: 'email',

@@ -7,6 +7,7 @@ import { createError } from "../utils/error.js";
 
 const signinOption = {
     schema: {
+        tags: ['Auth'],
         body: {
             type: 'object',
             properties: {
@@ -62,6 +63,7 @@ const signinOption = {
 
 const signUpOptions = {
     schema: {
+        tags: ['Auth'],
         body: {
             type: 'object',
             properties: {

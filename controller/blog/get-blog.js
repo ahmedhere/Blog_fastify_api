@@ -2,13 +2,13 @@ import Blog from "../../models/Blog.js";
 
 export default async ({
     _id,
-    page = 0,
+    page = 1,
     pageSize = 15,
     search
 }) => {
     const filter = {};
 
-    const skip = parseFloat(page) * parseFloat(pageSize);
+    const skip = parseFloat(page - 1) * parseFloat(pageSize);
 
     if (_id) {
         filter._id = _id;
@@ -30,5 +30,10 @@ export default async ({
         }
     ]);
 
-    return result;
+    const count = await Blog.countDocuments(filter);
+
+    return {
+        rows: result,
+        count
+    };
 };

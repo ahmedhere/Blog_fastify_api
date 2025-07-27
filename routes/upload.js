@@ -7,6 +7,7 @@ export default (fastify, options, done) => {
     fastify.register(fastifyMultipart);
     fastify.post('/', {
         schema: {
+            tags: ['Upload'],
             consumes: ['multipart/form-data'],
             body: {
                 type: 'object',
